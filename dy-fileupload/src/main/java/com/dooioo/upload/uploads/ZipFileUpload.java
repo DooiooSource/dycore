@@ -1,8 +1,8 @@
-package com.dooioo.upload.upload;
+package com.dooioo.upload.uploads;
 
 import com.dooioo.commons.Dates;
 import com.dooioo.commons.Randoms;
-import com.dooioo.upload.Upload;
+import com.dooioo.upload.UploadResult;
 import com.dooioo.upload.exception.UploadException;
 import com.dooioo.upload.utils.FileUtils;
 import com.dooioo.upload.utils.UploadConfig;
@@ -23,7 +23,7 @@ import java.util.zip.ZipInputStream;
 public class ZipFileUpload {
     private static final Logger LOGGER = Logger.getLogger(DocUpload.class);
     private static final String DATE_STYLE  = "yyyyMMdd";
-    private static final String FILE_SEPARATOR = File.separator;
+    private static final String FILE_SEPARATOR = "/";
     private static final String FILE_EXT = ".";
 
     /**
@@ -33,18 +33,20 @@ public class ZipFileUpload {
      * @return
      * @throws Exception
      */
-    public static Upload upload(byte[] data , String origiFileName,boolean isunzip) throws UploadException {
-        if(!origiFileName.toLowerCase().endsWith("zip") || !origiFileName.toLowerCase().endsWith("rar")){
+    public static UploadResult upload(byte[] data , String origiFileName,boolean isunzip) throws UploadException {
+        if(!origiFileName.toLowerCase().endsWith("zip") && !origiFileName.toLowerCase().endsWith("rar")){
             throw new UploadException("请上传ZIP文件");
         }
         try {
             //上传ZIP
-            String targetFilePath = UploadConfig.getInstance().getFlashDirectory() + File.separator + Dates.getDateTime(DATE_STYLE) + FILE_SEPARATOR ;
+            String  datePath = Dates.getDateTime(DATE_STYLE);
+            String targetFilePath = UploadConfig.getInstance().getFlashDirectory() + FILE_SEPARATOR + datePath + FILE_SEPARATOR ;
             FileUtils.existsAndCreate(targetFilePath);
             String  targetPath =   Randoms.getPrimaryKey();
-            String  targetFileName =   targetFilePath + targetPath + FILE_EXT +  FileUtils.getFileExtName(origiFileName);
-            FileUtils.writeByteToFile(data,targetFileName);
-            Upload upload = new Upload().setOrigiName(origiFileName).setTargetName(targetFileName);
+            String  targetFileName = targetPath + FILE_EXT +  FileUtils.getFileExtName(origiFileName);
+            FileUtils.writeByteToFile(data,targetFilePath + targetFileName);
+            UploadResult upload = new UploadResult().setOrigiName(origiFileName).setTargetName(UploadConfig.getInstance().getFlashPath() + datePath + FILE_SEPARATOR + targetFileName);
+
             if(!isunzip){
                 return upload;
             }
@@ -54,10 +56,11 @@ public class ZipFileUpload {
             FileInputStream fs =null;
             ZipInputStream zis=null;
             ZipEntry ze;
-            String _path =  targetFilePath + targetPath + "/";
-            String newFile = targetFilePath + targetPath +  "/";
+            String _path =  UploadConfig.getInstance().getFlashPath() + datePath + targetPath;
+            String newFile = targetFilePath + targetPath +  FILE_SEPARATOR;
+
             try{
-                fs	= new FileInputStream(targetFileName);
+                fs	= new FileInputStream(targetFilePath + targetFileName);
                 zis = new ZipInputStream(new BufferedInputStream(fs));
                 while ((ze = zis.getNextEntry()) != null) {
                     int count;
@@ -68,7 +71,6 @@ public class ZipFileUpload {
                     //获取文件名字
                     String fileName = ze.getName();
                     BufferedOutputStream bos = null;
-
                     try{
                         bos = new BufferedOutputStream(new FileOutputStream(getRealFileName(newFile, fileName)));
                         //如果为.htm 结尾的 代表是入口
@@ -76,9 +78,9 @@ public class ZipFileUpload {
                             upload.setHtmPath(_path + fileName);
                         }else if(fileName.indexOf("index.htm") != -1){
                             upload.setHtmPath(_path + fileName);
-                        }else if(fileName.endsWith(".jpg") || fileName.endsWith(".icon")){
+                        }else if((fileName.endsWith(".jpg") || fileName.endsWith(".icon")) && upload.getIconPath()==null){
                             upload.setIconPath(_path + fileName);
-                        }else if(fileName.endsWith("_2.jpg")){
+                        }else if(fileName.endsWith("_2.jpg")){ //特殊全景图片
                             upload.setIconPath(_path + fileName);
                         }
                         while ((count = zis.read(data, 0, 2048)) != -1) {
@@ -117,7 +119,7 @@ public class ZipFileUpload {
     /**
      * 上传文件
      */
-    public static Upload upload(FileItem fileItem ,boolean isunzip) throws UploadException {
+    public static UploadResult upload(FileItem fileItem ,boolean isunzip) throws UploadException {
         return upload(fileItem.get(), fileItem.getName(),isunzip);
     }
 

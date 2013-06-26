@@ -7,7 +7,7 @@ package com.dooioo.upload;
  * @since 1.0
  *        To change this template use File | Settings | File Templates.
  */
-public class Upload {
+public class UploadResult {
     /**
      * 上传文件源名称
      */
@@ -39,14 +39,14 @@ public class Upload {
     private String iconPath;
 
 
-    public Upload(){
+    public UploadResult(){
     }
 
     public String getOrigiName() {
         return origiName;
     }
 
-    public Upload setOrigiName(String origiName) {
+    public UploadResult setOrigiName(String origiName) {
         this.origiName = origiName;
         return this;
     }
@@ -55,7 +55,7 @@ public class Upload {
         return targetName;
     }
 
-    public Upload setTargetName(String targetName) {
+    public UploadResult setTargetName(String targetName) {
         this.targetName = targetName;
         return this;
     }
@@ -64,7 +64,7 @@ public class Upload {
         return width;
     }
 
-    public Upload setWidth(int width) {
+    public UploadResult setWidth(int width) {
         this.width = width;
         return this;
     }
@@ -73,7 +73,7 @@ public class Upload {
         return height;
     }
 
-    public Upload setHeight(int height) {
+    public UploadResult setHeight(int height) {
         this.height = height;
         return this;
     }
@@ -92,5 +92,17 @@ public class Upload {
 
     public void setIconPath(String iconPath) {
         this.iconPath = iconPath;
+    }
+
+    @Override
+    public String toString() {
+        return "UploadResult{" +
+                "origiName='" + origiName + '\'' +
+                ", targetName='" + targetName + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                ", htmPath='" + htmPath + '\'' +
+                ", iconPath='" + iconPath + '\'' +
+                '}';
     }
 }

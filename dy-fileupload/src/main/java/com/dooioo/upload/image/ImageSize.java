@@ -27,7 +27,7 @@ public class ImageSize {
     /**
      * 500x375小图
      */
-    public static final ImageSize IMAGE_SIZE_500x375 = new ImageSize(500,373);
+    public static final ImageSize IMAGE_SIZE_500x375 = new ImageSize(500,375);
     /**
      * 600x450小图
      */

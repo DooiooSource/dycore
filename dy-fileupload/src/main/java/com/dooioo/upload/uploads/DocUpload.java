@@ -1,15 +1,13 @@
-package com.dooioo.upload.upload;
+package com.dooioo.upload.uploads;
 
 import com.dooioo.commons.Dates;
 import com.dooioo.commons.Randoms;
-import com.dooioo.upload.Upload;
+import com.dooioo.upload.UploadResult;
 import com.dooioo.upload.exception.UploadException;
 import com.dooioo.upload.utils.FileUtils;
 import com.dooioo.upload.utils.UploadConfig;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.log4j.Logger;
-
-import java.io.File;
 
 /**
  * Created with IntelliJ IDEA at 13-6-24 下午3:49.
@@ -21,18 +19,20 @@ import java.io.File;
 public final class DocUpload{
     private static final Logger LOGGER = Logger.getLogger(DocUpload.class);
     private static final String DATE_STYLE  = "yyyyMMdd";
-    private static final String FILE_SEPARATOR = File.separator;
+    private static final String FILE_SEPARATOR = "/";
     private static final String FILE_EXT = ".";
 
     /**
      * 上传文件
      */
-    public static Upload upload(byte[] fileBytes , String origiFileName) throws UploadException {
+    public static UploadResult upload(byte[] fileBytes , String origiFileName) throws UploadException {
         try {
-            FileUtils.existsAndCreate(UploadConfig.getInstance().getDocDirectory() + File.separator + Dates.getDateTime(DATE_STYLE) + FILE_SEPARATOR);
-            String targetFileName = UploadConfig.getInstance().getDocDirectory() + File.separator + Dates.getDateTime(DATE_STYLE) + FILE_SEPARATOR + Randoms.getPrimaryKey() + FILE_EXT + FileUtils.getFileExtName(origiFileName);
+            String path = Dates.getDateTime(DATE_STYLE);
+            String fileName = Randoms.getPrimaryKey() + FILE_EXT + FileUtils.getFileExtName(origiFileName);
+            FileUtils.existsAndCreate(UploadConfig.getInstance().getDocDirectory() + FILE_SEPARATOR + path);
+            String targetFileName = UploadConfig.getInstance().getDocDirectory() + FILE_SEPARATOR + path + FILE_SEPARATOR + fileName;
             FileUtils.writeByteToFile(fileBytes,targetFileName);
-            return new Upload().setOrigiName(origiFileName).setTargetName(targetFileName);
+            return new UploadResult().setOrigiName(origiFileName).setTargetName(UploadConfig.getInstance().getDocPath() + path + FILE_SEPARATOR + fileName);
         } catch (Exception e) {
             LOGGER.error(e);
             throw new UploadException(e);
@@ -42,7 +42,7 @@ public final class DocUpload{
     /**
      * 上传文件
      */
-    public static Upload upload(FileItem fileItem) throws UploadException {
+    public static UploadResult upload(FileItem fileItem) throws UploadException {
         return upload(fileItem.get(), fileItem.getName());
     }
 }
