@@ -10,6 +10,7 @@
     <packaging>jar</packaging>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>dy-fileupload</artifactId>
+    <version>beta-0.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -61,7 +62,7 @@
         <dependency>
             <groupId>dycore</groupId>
             <artifactId>dy-commons</artifactId>
-            <version>${pom.version}</version>
+            <version>1.2.0</version>
         </dependency>
     </dependencies>
 </project>

@@ -35,24 +35,24 @@ public class UploadFactoryTest {
 
     @Test
     public void testPicUpload() throws UploadException {
-        System.out.println(UploadFactory.upload(picdata,"dooioo.jpg",Company.DOOIOO,new ImageArgConvert(ImageSize.IMAGE_SIZE_200x150, Logo.Logo),new ImageArgConvert(ImageSize.IMAGE_SIZE_100x75)));
+        System.out.println(UploadFactory.uploadPic(picdata,"dooioo.jpg",Company.DOOIOO,new ImageArgConvert(ImageSize.IMAGE_SIZE_200x150, Logo.Logo),new ImageArgConvert(ImageSize.IMAGE_SIZE_100x75)));
     }
 
     @Test
     public void testDocUpload() throws UploadException {
-        System.out.println(UploadFactory.upload(docdata,"QQ空间.apk",Company.DOOIOO));
+        System.out.println(UploadFactory.upload(docdata,"QQ空间.apk",false));
     }
 
     @Test
     public void testRecordUpload() throws UploadException {
-        System.out.println(UploadFactory.upload(recorddata,"dooioo.wav",Company.DOOIOO));
+        System.out.println(UploadFactory.upload(recorddata,"dooioo.wav",false));
     }
 
     @Test
     public void testRarUpload() throws UploadException {
-        System.out.println("不解压:" + UploadFactory.upload(rardata,"TelServer.rar",Company.DOOIOO,false));
+        System.out.println("不解压:" + UploadFactory.upload(rardata,"TelServer.rar",false));
 
-        System.out.println("解压:" + UploadFactory.upload(rardata,"TelServer.rar",Company.DOOIOO,true));
+        System.out.println("解压:" + UploadFactory.upload(rardata,"TelServer.rar",true));
     }
 
     @Test
