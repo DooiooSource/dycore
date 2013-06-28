@@ -64,7 +64,7 @@ public class ZipFileUpload {
                 zis = new ZipInputStream(new BufferedInputStream(fs));
                 while ((ze = zis.getNextEntry()) != null) {
                     int count;
-                    byte[] buffer = new byte[2048];
+//                    byte[] buffer = new byte[2048];
                     if (ze.isDirectory()) {
                         continue;
                     }
