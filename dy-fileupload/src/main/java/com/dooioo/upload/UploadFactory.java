@@ -174,7 +174,7 @@ public class UploadFactory {
 
     /**
      * 上传图片
-     * //TODO:目前只支持同步压缩 异步调用
+     * //TODO:目前只支持同步压缩 异步调用未实现
      * @param data
      * @param company
      * @param imageArgConverts
