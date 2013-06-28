@@ -51,7 +51,10 @@ public class ImageMagick extends AbstractImage {
 
         MagickImage image = null;
         try {
+//            ImageInfo imageInfo = new ImageInfo(relationPath);
+//            imageInfo.setQuality(6);
             image = new MagickImage(new ImageInfo(relationPath));
+//            image = new MagickImage(imageInfo);
             splitHandle(image,targetPath,company,imageArgConverts);
         } catch (Exception e) {
             LOGGER.error(e);
@@ -101,7 +104,11 @@ public class ImageMagick extends AbstractImage {
         buildWaterMaker(imageArgConvert, newimage,company);
 //        newimage = cutImage(imageArgConvert, newimage, retImageSize);
         newimage.setFileName(filename);
-        newimage.writeImage(new ImageInfo());
+//        newimage.set
+        ImageInfo imageInfo = new ImageInfo();
+//        imageInfo.set
+//        imageInfo.setQuality(40);
+        newimage.writeImage(imageInfo);
         newimage.destroyImages();
     }
 
@@ -164,7 +171,7 @@ public class ImageMagick extends AbstractImage {
         }
 
         //宽大于600，使用大图水印
-        if(imageArgConvert.getImageSize().getWidth() > 600){
+        if(imageArgConvert.getImageSize().getWidth() > 600 && newimage.getDimension().getWidth() > 600){
             logoinfo = new ImageInfo(UploadConfig.getInstance().getSuperLogoPath(company));
         }
 

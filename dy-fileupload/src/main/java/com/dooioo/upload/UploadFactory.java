@@ -118,19 +118,6 @@ public class UploadFactory {
         return upload(data, fileName, company, isunzip, new ImageArgConvert[0]);
     }
 
-//    /**
-//     * 文件上传
-//     *
-//     * @param fileItem         上传文件流
-//     * @param isunzip          zip是否需要解压
-//     * @param imageArgConverts 图片上传时，图片尺寸图
-//     * @return
-//     * @throws UploadException
-//     */
-//    private static UploadResult upload(FileItem fileItem, boolean isunzip, Company company, ImageArgConvert... imageArgConverts) throws UploadException {
-//        return upload(fileItem.get(), fileItem.getName(),  company, isunzip,imageArgConverts);
-//    }
-
     /**
      * 文件上传
      *

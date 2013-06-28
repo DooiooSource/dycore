@@ -58,10 +58,11 @@ public class UploadFactoryTest {
     @Test
     public void  testGenPics() throws UploadException {
         List<ImageArgConvert>  imageArgConverts = new ArrayList<ImageArgConvert>();
-        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_400x300, Logo.Logo));
-        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_300x225, Logo.Logo));
-        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_500x375, Logo.Logo));
-        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_NO, Logo.Logo));
+//        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_400x300, Logo.Logo));
+//        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_300x225, Logo.Logo));
+//        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_500x375, Logo.Logo));
+        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_900x675, Logo.Logo));
+        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_100x75, Logo.Logo));
         UploadFactory.asyncGeneratePics("20130626/20130626163415210ERCAQ3RSXRB2Q1D.jpg",Company.DOOIOO,imageArgConverts);
     }
 }
