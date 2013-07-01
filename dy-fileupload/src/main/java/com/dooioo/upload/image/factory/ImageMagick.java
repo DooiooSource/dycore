@@ -102,7 +102,7 @@ public class ImageMagick extends AbstractImage {
         // 定义新图的MagickImage对象
         MagickImage newimage = image.scaleImage(retImageSize.getWidth(), retImageSize.getHeight());
         buildWaterMaker(imageArgConvert, newimage,company);
-//        newimage = cutImage(imageArgConvert, newimage, retImageSize);
+        newimage = cutImage(imageArgConvert, newimage, retImageSize);
         newimage.setFileName(filename);
 //        newimage.set
         ImageInfo imageInfo = new ImageInfo();
@@ -212,5 +212,20 @@ public class ImageMagick extends AbstractImage {
                 break; // 平铺
         }
         logoimage.destroyImages();
+    }
+
+    /**
+     * 剪裁图片尺寸
+     *
+     * @param imageArgConvert
+     * @param newimage
+     * @param imageSize
+     */
+    private static MagickImage cutImage(ImageArgConvert imageArgConvert, MagickImage newimage, ImageSize imageSize) throws MagickException {
+        if (imageArgConvert.getImageSize().getWidth() > 200){
+            return newimage;
+        }
+        Rectangle rect = new Rectangle(imageSize.getX(), imageSize.getY(), imageArgConvert.getImageSize().getWidth(), imageArgConvert .getImageSize().getHeight());
+        return newimage.cropImage(rect);
     }
 }

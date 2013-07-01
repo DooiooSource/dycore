@@ -77,11 +77,23 @@ public abstract class AbstractImage {
         }
 
         if (compareScaleSize(sourceImageSize, targetImageSize)) {
-            scaleImageSize.setWidth(targetImageSize.getWidth());
-            scaleImageSize.setHeight((targetImageSize.getWidth() * sourceImageSize.getHeight()) / sourceImageSize.getWidth());
-        } else {
             scaleImageSize.setHeight(targetImageSize.getHeight());
             scaleImageSize.setWidth((sourceImageSize.getWidth() * targetImageSize.getHeight()) / sourceImageSize.getHeight());
+            scaleImageSize.setX((scaleImageSize.getWidth() - targetImageSize.getWidth()) / 2);
+
+            if(targetImageSize.getWidth() > 300 && scaleImageSize.getWidth() > targetImageSize.getWidth()) {
+                scaleImageSize.setWidth(targetImageSize.getWidth());
+                scaleImageSize.setHeight((int) ((scaleImageSize.getWidth() * sourceImageSize.getHeight()) / sourceImageSize.getWidth()));
+            }
+        } else {
+            scaleImageSize.setWidth(targetImageSize.getWidth());
+            scaleImageSize.setHeight((targetImageSize.getWidth() * sourceImageSize.getHeight()) / sourceImageSize.getWidth());
+            scaleImageSize.setY((scaleImageSize.getHeight() - targetImageSize.getHeight()) / 2);
+
+            if( targetImageSize.getHeight() > 225 &&  scaleImageSize.getHeight() > targetImageSize.getHeight()) {
+                scaleImageSize.setHeight(targetImageSize.getHeight());
+                scaleImageSize.setWidth((int) (scaleImageSize.getHeight() * sourceImageSize.getWidth() / sourceImageSize.getHeight()));
+            }
         }
         return scaleImageSize;
     }

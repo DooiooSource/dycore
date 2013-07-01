@@ -35,34 +35,34 @@ public class UploadFactoryTest {
 
     @Test
     public void testPicUpload() throws UploadException {
-        System.out.println(UploadFactory.uploadPic(picdata,"dooioo.jpg",Company.DOOIOO,new ImageArgConvert(ImageSize.IMAGE_SIZE_200x150, Logo.Logo),new ImageArgConvert(ImageSize.IMAGE_SIZE_100x75)));
+//        System.out.println(UploadFactory.uploadPic(picdata,"dooioo.jpg",Company.DOOIOO,new ImageArgConvert(ImageSize.IMAGE_SIZE_200x150, Logo.Logo),new ImageArgConvert(ImageSize.IMAGE_SIZE_100x75)));
     }
 
     @Test
     public void testDocUpload() throws UploadException {
-        System.out.println(UploadFactory.upload(docdata,"QQ空间.apk",false));
+//        System.out.println(UploadFactory.upload(docdata,"QQ空间.apk",false));
     }
 
     @Test
     public void testRecordUpload() throws UploadException {
-        System.out.println(UploadFactory.upload(recorddata,"dooioo.wav",false));
+//        System.out.println(UploadFactory.upload(recorddata,"dooioo.wav",false));
     }
 
     @Test
     public void testRarUpload() throws UploadException {
-        System.out.println("不解压:" + UploadFactory.upload(rardata,"TelServer.rar",false));
+//        System.out.println("不解压:" + UploadFactory.upload(rardata,"TelServer.rar",false));
 
-        System.out.println("解压:" + UploadFactory.upload(rardata,"TelServer.rar",true));
+//        System.out.println("解压:" + UploadFactory.upload(rardata,"TelServer.rar",true));
     }
 
     @Test
     public void  testGenPics() throws UploadException {
         List<ImageArgConvert>  imageArgConverts = new ArrayList<ImageArgConvert>();
-//        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_400x300, Logo.Logo));
-//        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_300x225, Logo.Logo));
-//        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_500x375, Logo.Logo));
+        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_400x300, Logo.Logo));
+        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_300x225, Logo.Logo));
+        imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_500x375, Logo.Logo));
         imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_900x675, Logo.Logo));
         imageArgConverts.add(new ImageArgConvert(ImageSize.IMAGE_SIZE_100x75, Logo.Logo));
-        UploadFactory.asyncGeneratePics("20130626/20130626163415210ERCAQ3RSXRB2Q1D.jpg",Company.DOOIOO,imageArgConverts);
+        UploadFactory.asyncGeneratePics("20130701/20130701174447994ILWQ02E5EZ0RXSO.jpg",Company.DOOIOO,imageArgConverts);
     }
 }
