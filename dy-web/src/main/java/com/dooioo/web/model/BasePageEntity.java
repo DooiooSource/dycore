@@ -36,4 +36,8 @@ public class BasePageEntity extends BaseEntity {
     public void setWhere(String where) {
         this.where = where;
     }
+
+    public void appendWhere(String newWhere){
+       this.setWhere(this.getWhere()+" and "+ newWhere);
+    }
 }
