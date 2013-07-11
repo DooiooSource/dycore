@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.view.RedirectView;
@@ -263,5 +264,9 @@ public abstract class BaseController {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+    @RequestMapping(value = "/it/ping")
+    public @ResponseBody JsonResult ping(){
+        return ok();
     }
 }
